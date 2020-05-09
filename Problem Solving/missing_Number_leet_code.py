@@ -1,19 +1,32 @@
-
-def missingNumber(nums):
-    nums.sort()
-
-    # Ensure that n is at the last index
-    if nums[-1] != len(nums):
-        return len(nums)
-    # Ensure that 0 is at the first index
-    elif nums[0] != 0:
-        return 0
-
-    # If we get here, then the missing number is on the range (0, n)
-    for i in range(1, len(nums)):
-        expected_num = nums[i-1] + 1
-        print(i,expected_num)
-        if nums[i] != expected_num:
-            return expected_num
+#Approach 1
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        n=len(nums)
+        expected_sum=(n*(n+1))//2
+        return expected_sum-sum(nums)
+ 
+#Approach 2:
+class Solution(object):
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        hash_map={}
+        length_nums=len(nums)
+        for index in range(length_nums):
+            element=nums[index]
+            if element not in hash_map:
+                hash_map[element]=1
         
-missingNumber([3,4,-1,1])
+        for number in range(length_nums+1):
+            if number not in hash_map:
+                return number
+
+#Approach 3:
+class Solution:
+    def missingNumber(self, a):
+        a=sorted(a)
+        for i in range(0,len(a)+1):
+            if i not in a:
+                return i
